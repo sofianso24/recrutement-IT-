@@ -3,12 +3,11 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const candidatSchema = new Schema({
-  userInherit: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
-  ],
+  userInherit: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+
   description: String,
   cv: {
     data: Buffer,
