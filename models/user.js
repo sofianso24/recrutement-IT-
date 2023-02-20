@@ -4,6 +4,11 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
+    userType: {
+      type: String,
+      enum: ["admin", "candidat", "recruteur"],
+      required: true,
+    },
     nom: {
       type: String,
       required: true,

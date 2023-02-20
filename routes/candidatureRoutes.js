@@ -1,3 +1,3 @@
 import express from "express";
 
-export const candidatureRoutes = express.Routes();
+export const candidatureRoutes = express.Router();
