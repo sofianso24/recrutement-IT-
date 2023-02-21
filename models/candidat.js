@@ -1,3 +1,4 @@
+import { application } from "express";
 import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;

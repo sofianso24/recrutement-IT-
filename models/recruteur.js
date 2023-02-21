@@ -10,7 +10,7 @@ const recruteurSchema = new Schema({
     },
   ],
 
-  CompanyName: {
+  companyName: {
     type: String,
     required: true,
   },
