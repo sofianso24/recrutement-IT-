@@ -38,3 +38,15 @@ export const deleteCandidat = async (req, res) => {
         console.log(err)
     }
 }
+
+
+
+export const getAllCandidat = async (req, res) => {
+  try {
+    const candidats = await Candidat.find();
+    res.json(candidats);
+  } catch (error) {
+    res.json(error);
+  }
+};
+
