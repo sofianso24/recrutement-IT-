@@ -97,13 +97,17 @@ export const logIn = async (req, res) => {
   }
 
   const authToken = createToken(user);
-  res.cookie("auth-token", authToken, { maxAge: 60 * 60 * 24 * 1000 }); // maxAge: 30 days
-  res.json("loged In");
+  const userId = user._id.toString();
+  res.cookie("auth-token", { authToken }, { maxAge: 60 * 60 * 24 * 1000 });
+  res.cookie("userId", { userId }); // maxAge: 30 days
+  res.json(userId);
 };
 
 export const logOut = async (req, res) => {
   try {
-    res.clearCookie("auth-token").json("clered");
+    res.clearCookie("auth-token");
+    res.clearCookie("userId");
+    res.json("cleared");
   } catch (error) {
     res.json(error);
   }

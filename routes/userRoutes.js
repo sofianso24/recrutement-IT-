@@ -15,4 +15,3 @@ userRoutes.post("/create", createUser);
 userRoutes.delete("/deleteAllUsers", deleteAllUsers);
 userRoutes.post("/login", logIn);
 userRoutes.get("/logout", logOut);
-
