@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 import { userRoutes } from "./routes/userRoutes.js";
 import { adminRoutes } from "./routes/adminRoutes.js";
 import { recruteurRoutes } from "./routes/recruteurRoutes.js";
@@ -26,8 +27,13 @@ mongoose
     console.log(err);
   });
 
-app.use(express.json())
-app.use(express.urlencoded({extended:true}));
+
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+
 
 app.use("/users", userRoutes);
 app.use("/admins", adminRoutes);
