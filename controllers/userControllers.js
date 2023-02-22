@@ -103,7 +103,7 @@ export const logIn = async (req, res) => {
 
 export const logOut = async (req, res) => {
   try {
-    res.clearCookie("auth-token").json(req.cookies);
+    res.clearCookie("auth-token").json("clered");
   } catch (error) {
     res.json(error);
   }
