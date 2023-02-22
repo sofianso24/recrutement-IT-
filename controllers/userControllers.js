@@ -1,38 +1,34 @@
-
-import {User} from "../models/user.js"
+import { User } from "../models/user.js";
 
 // delete a user :
 
-export const deleteUser = async (req,res)=>{
-    try{
-        const id = req.params.id;
-        const user = await User.findByIdAndDelete(id);
-        res.send("profile is deleted")
-    }
-    catch(err){
-        res.send(err)
-    }
-}
+export const deleteUser = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const user = await User.findByIdAndDelete(id);
+    res.send("profile is deleted");
+  } catch (err) {
+    res.send(err);
+  }
+};
 
 // update a user :
 
-export const updateUser = async(req,res)=>{
-    try{
-        const id = req.params.id;
-        const user = await User.findById(id)
-        const updateUser = await user.updateOne(
-               { nom: req.body.nom,
-                 prenom:req.body.prenom,
-                 mail: req.body.mail,
-                 password:req.body.mail      
-            }      
-        )
-        res.send(updateUser)
-    }
-    catch(err){
-        res.send(err)
-    }
-}
+export const updateUser = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const user = await User.findById(id);
+    const updateUser = await user.updateOne({
+      nom: req.body.nom,
+      prenom: req.body.prenom,
+      mail: req.body.mail,
+      password: req.body.mail,
+    });
+    res.send(updateUser);
+  } catch (err) {
+    res.send(err);
+  }
+};
 
 import { Admin } from "../models/admin.js";
 import { Candidat } from "../models/candidat.js";
@@ -133,6 +129,7 @@ export const logIn = async (req, res) => {
 
   const authToken = createToken(user);
   const userId = user._id.toString();
+
   res.cookie("auth-token", { authToken }, { maxAge: 60 * 60 * 24 * 1000 });
   res.cookie("userId", { userId }); // maxAge: 30 days
   res.json(userId);
@@ -147,4 +144,3 @@ export const logOut = async (req, res) => {
     res.json(error);
   }
 };
-
