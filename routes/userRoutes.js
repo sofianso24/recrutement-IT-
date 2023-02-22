@@ -4,6 +4,7 @@ import {
   getAllUsers,
   deleteAllUsers,
   logIn,
+  logOut,
 } from "../controllers/userControllers.js";
 import { adminAuthValidation } from "../middelwares/jwt.js";
 
@@ -13,3 +14,4 @@ userRoutes.get("/", adminAuthValidation, getAllUsers);
 userRoutes.post("/create", createUser);
 userRoutes.delete("/deleteAllUsers", deleteAllUsers);
 userRoutes.post("/login", logIn);
+userRoutes.get("/logout", logOut);
