@@ -1,3 +1,3 @@
 import express from "express";
 
-export const categorieRoutes = express.Routes();
+export const categorieRoutes = express.Router();

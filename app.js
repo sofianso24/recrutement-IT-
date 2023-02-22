@@ -25,7 +25,7 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-
+app.use(express.json());
 app.use("/users", userRoutes);
 app.use("/admins", adminRoutes);
 app.use("/recruteurs", recruteurRoutes);
