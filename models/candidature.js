@@ -13,6 +13,12 @@ const candidatureSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "offre",
     },
+    state:{
+      type:String,
+      enum:["enCours","refus","acccepted"],
+      required:true,
+      default:"enCours"
+    }
   },
   { timestamps: true }
 );

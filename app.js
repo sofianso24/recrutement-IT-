@@ -26,6 +26,9 @@ mongoose
     console.log(err);
   });
 
+app.use(express.json())
+app.use(express.urlencoded({extended:true}));
+
 app.use("/users", userRoutes);
 app.use("/admins", adminRoutes);
 app.use("/recruteurs", recruteurRoutes);
