@@ -6,7 +6,9 @@ import { supriCategorie } from "../controllers/categorieControllers.js";
 
 export const categorieRoutes = express.Router();
 
+
 categorieRoutes.post("/creerCategorie", creerCategorie);
 categorieRoutes.get("/affichCategorie", affichCategorie);
 categorieRoutes.put("/updateCategorie/:id", updateCategorie);
 categorieRoutes.delete("/supriCategorie/:id", supriCategorie);
+

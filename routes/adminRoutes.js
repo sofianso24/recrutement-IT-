@@ -1,5 +1,6 @@
 import express from "express";
 
+
 import {
   deleteAllAdmins,
   getAllAdmins,
@@ -9,3 +10,4 @@ export const adminRoutes = express.Router();
 
 adminRoutes.get("/", getAllAdmins);
 adminRoutes.delete("/deleteAllAdmins", deleteAllAdmins);
+

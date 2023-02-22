@@ -6,3 +6,4 @@ export const recruteurRoutes = express.Router();
 recruteurRoutes.get("/", getAllRecruteurs);
 
 
+

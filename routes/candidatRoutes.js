@@ -2,6 +2,7 @@ import express from "express";
 
 export const candidatRoutes = express.Router();
 
+
 import {updateprofil,deleteCandidat} from "../controllers/candidatControllers.js"
 
 
@@ -13,5 +14,6 @@ import { getAllCandidat } from "./../controllers/candidatControllers.js";
 
 
 candidatRoutes.get("/", getAllCandidat);
+
 
 
