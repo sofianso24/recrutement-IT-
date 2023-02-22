@@ -11,4 +11,11 @@ adminRoutes.get("/affichCategorie",affichCategorie);
 adminRoutes.put("/updateCategorie/:id",updateCategorie);
 adminRoutes.delete("/supriCategorie/:id",supriCategorie);
 
+import {
+  deleteAllAdmins,
+  getAllAdmins,
+} from "../controllers/adminControllers.js";
+
+adminRoutes.get("/", getAllAdmins);
+adminRoutes.delete("/deleteAllAdmins", deleteAllAdmins);
 
