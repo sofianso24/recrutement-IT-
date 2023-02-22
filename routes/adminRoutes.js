@@ -19,3 +19,4 @@ import {
 adminRoutes.get("/", getAllAdmins);
 adminRoutes.delete("/deleteAllAdmins", deleteAllAdmins);
 
+
