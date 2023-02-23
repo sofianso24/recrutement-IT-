@@ -11,64 +11,72 @@ export const createToken = (user) => {
 };
 
 export const adminAuthValidation = (req, res, next) => {
-  const authToken = req.cookies["auth-token"];
-  if (!authToken) {
-    res.json("not auth for this route");
-  } else {
-    const decodedToken = verify(authToken, process.env.SECRET);
-    if (decodedToken.userType !== "admin") {
+  const authToken = req.cookies["auth-token"].authToken;
+  const userType = req.cookies["userType"].userType;
+  console.log(userType);
+  if (userType === "admin") {
+    if (!authToken) {
       res.json("not auth for this route");
     } else {
-      try {
-        if (decodedToken) {
-          req.authIsValid = true;
+      const decodedToken = verify(authToken, process.env.SECRET);
+      if (decodedToken.userType !== "admin") {
+        res.json("not auth for this route");
+      } else {
+        try {
           return next();
+        } catch (error) {
+          return res.json(error);
         }
-      } catch (error) {
-        return res.json(error);
       }
     }
+  } else {
+    next();
   }
 };
 
 export const candidatAuthValidation = (req, res, next) => {
-  const authToken = req.cookies["auth-token"];
-  if (!authToken) {
-    res.json("not auth for this route");
-  } else {
-    const decodedToken = verify(authToken, process.env.SECRET);
-    if (decodedToken.userType !== "candidat") {
+  const authToken = req.cookies["auth-token"].authToken;
+  const userType = req.cookies["userType"].userType;
+  if (userType === "candidat") {
+    if (!authToken) {
       res.json("not auth for this route");
     } else {
-      try {
-        if (decodedToken) {
-          req.authIsValid = true;
+      const decodedToken = verify(authToken, process.env.SECRET);
+      if (decodedToken.userType !== "candidat") {
+        res.json("not auth for this route");
+      } else {
+        try {
           return next();
+        } catch (error) {
+          return res.json(error);
         }
-      } catch (error) {
-        return res.json(error);
       }
     }
+  } else {
+    next();
   }
 };
 
 export const recruteurAuthValidation = (req, res, next) => {
-  const authToken = req.cookies["auth-token"];
-  if (!authToken) {
-    res.json("not auth for this route");
-  } else {
-    const decodedToken = verify(authToken, process.env.SECRET);
-    if (decodedToken.userType !== "recruteur") {
+  const authToken = req.cookies["auth-token"].authToken;
+  const userType = req.cookies["userType"].userType;
+
+  if (userType === "recruteur") {
+    if (!authToken) {
       res.json("not auth for this route");
     } else {
-      try {
-        if (decodedToken) {
-          req.authIsValid = true;
+      const decodedToken = verify(authToken, process.env.SECRET);
+      if (decodedToken.userType !== "recruteur") {
+        res.json("not auth for this route");
+      } else {
+        try {
           return next();
+        } catch (error) {
+          return res.json(error);
         }
-      } catch (error) {
-        return res.json(error);
       }
     }
+  } else {
+    next();
   }
 };

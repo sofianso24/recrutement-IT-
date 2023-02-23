@@ -1,4 +1,9 @@
 import { User } from "../models/user.js";
+import { Admin } from "../models/admin.js";
+import { Candidat } from "../models/candidat.js";
+import { Recruteur } from "../models/recruteur.js";
+import bcrypt from "bcrypt";
+import { createToken } from "../middelwares/jwt.js";
 
 // delete a user :
 
@@ -29,12 +34,6 @@ export const updateUser = async (req, res) => {
     res.send(err);
   }
 };
-
-import { Admin } from "../models/admin.js";
-import { Candidat } from "../models/candidat.js";
-import { Recruteur } from "../models/recruteur.js";
-import bcrypt from "bcrypt";
-import { createToken } from "../middelwares/jwt.js";
 
 export const getAllUsers = async (req, res) => {
   try {
@@ -90,16 +89,28 @@ export const createUser = async (req, res) => {
       res.json(error);
     }
   } else if (user.userType === "recruteur") {
-    try {
-      const companyName = req.body.companyName;
-      const recruteur = new Recruteur({
-        companyName,
-      });
-      recruteur.userInherit.push(user._id);
-      await recruteur.save();
-      res.json(recruteur);
-    } catch (error) {
-      res.json(error);
+    const companyName = req.body.companyName;
+    const recruteurArr = await Recruteur.find({ companyName });
+    if (recruteurArr === []) {
+      try {
+        const recruteur = new Recruteur({
+          companyName,
+        });
+        recruteur.userInherit.push(user._id);
+        await recruteur.save();
+        res.json(recruteur);
+      } catch (error) {
+        res.json(error);
+      }
+    } else {
+      try {
+        const recruteur = recruteurArr[0];
+        const addUserInherit = recruteur.userInherit.push(user._id);
+        await recruteur.save();
+        res.json(recruteur);
+      } catch (error) {
+        res.json(error);
+      }
     }
   }
 };
@@ -129,9 +140,11 @@ export const logIn = async (req, res) => {
 
   const authToken = createToken(user);
   const userId = user._id.toString();
+  const userType = user.userType;
 
-  res.cookie("auth-token", { authToken }, { maxAge: 60 * 60 * 24 * 1000 });
-  res.cookie("userId", { userId }); // maxAge: 30 days
+  res.cookie("auth-token", { authToken }, { maxAge: 60 * 60 * 24 * 1000 }); // maxAge: 30 days
+  res.cookie("userId", { userId });
+  res.cookie("userType", { userType });
   res.json(userId);
 };
 

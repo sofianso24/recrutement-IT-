@@ -4,28 +4,28 @@ import { Recruteur } from "./../models/recruteur.js";
 
 // create offre :
 export const createOffre = async (req, res) => {
-  //logic to get recruteur id? from user id
   const userId = req.cookies["userId"].userId;
-  const categorieId = await Categorie.find({ nom: req.body.categories })._id;
+  const categorieArr = await Categorie.find({ nom: req.body.categories });
   const recruteurId = await Recruteur.find({
     userInherit: userId,
   });
-  console.log(userId);
-  console.log(recruteurId[0]._id);
-  console.log(categorieId);
-  const offre = new Offre({
-    recruteur: recruteurId[0]._id,
-    title: req.body.title,
-    description: req.body.description,
-    dateLimit: req.body.dateLimit,
-  });
-  offre.categories.push(categorieId);
-
-  try {
-    await offre.save();
-    res.json(offre);
-  } catch (error) {
-    res.json(error);
+  const offreExists = await Offre.findOne({ title: req.body.title });
+  if (offreExists) {
+    res.json({ error: "one offre already exists with same title" });
+  } else {
+    const offre = new Offre({
+      recruteur: recruteurId[0]._id,
+      title: req.body.title,
+      description: req.body.description,
+      dateLimit: req.body.dateLimit,
+    });
+    offre.categories.push(categorieArr[0]._id);
+    try {
+      await offre.save();
+      res.json(offre);
+    } catch (error) {
+      res.json(error);
+    }
   }
 };
 

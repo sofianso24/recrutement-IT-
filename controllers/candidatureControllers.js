@@ -50,8 +50,11 @@ export const newCandidature = async (req, res) => {
   const userId = req.cookies["userId"].userId;
   const candidat = await Candidat.find({ userInherit: userId });
   const candidatId = candidat[0]._id;
-  const offre = await Offre.find({ title: req.body.title });
-  const offreId = offre[0]._id;
+  const offre = await Offre.findOne({ title: req.body.title });
+  if (!offre) {
+    return res.json({ error: "offre not found" });
+  }
+  const offreId = offre._id;
   try {
     const new_candidatutre = new Candidature({
       candidat: candidatId,
